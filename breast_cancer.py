@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Sun Nov 24 15:38:57 2019
+Created on Sun Nov 24 22:20:52 2019
 
 @author: ricardo.araujo
 """
 
 import numpy as np
+from sklearn import datasets
 
 def sigmoid(soma):
     return 1 / (1 + np.exp(-soma))
@@ -14,29 +15,19 @@ def sigmoid(soma):
 def sigmoidDerivada(sig):
     return sig * (1 - sig)
 
-#a = sigmoid(0.5)
-#b = sigmoidDerivada(a)
+base = datasets.load_breast_cancer()
+entradas = base.data
+valoresSaida = base.target
+saidas = np.empty([569, 1], dtype=int)
 
-# euler's number
-#a = np.exp(1)
-    
-entradas = np.array([[0,0],
-                     [0,1],
-                     [1,0],
-                     [1,1]])
-    
-saidas = np.array([[0],[1],[1],[0]])
+for i in range(569):
+    saidas[i] = valoresSaida[i]
 
-#pesos0 = np.array([[-0.424, -0.740, -0.961],
-#                   [0.358, -0.577, -0.469]])
-
-#pesos1 = np.array([[-0.017],[-0.893],[0.148]])
-
-pesos0 = 2 * np.random.random((2,3)) - 1
-pesos1 = 2 * np.random.random((3,1)) - 1
+pesos0 = 2 * np.random.random((30,5)) - 1
+pesos1 = 2 * np.random.random((5,1)) - 1
 
 epocas = 10000
-taxaAprendizagem = 0.6
+taxaAprendizagem = 0.3
 momento = 1
 
 for j in range(epocas):
